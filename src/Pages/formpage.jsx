@@ -66,6 +66,7 @@ const FormPage = () => {
     licenseNumber: '',
     email: '',
     mobile: '',
+    bloodGroup: '',
     address: '',
     dob: '',
     emergencyContact: '',
@@ -73,6 +74,7 @@ const FormPage = () => {
     vehicleType: '',
     manufacturer: '',
     model: '',
+
   });
 
   const validateForm = () => {
@@ -136,6 +138,7 @@ const FormPage = () => {
       mobile: formData.mobile,
       vehicleNumber: formData.vehicleNumber,
       vehicleType: formData.vehicleType,
+      bloodGroup: formData.bloodGroup,
       manufacturer: formData.manufacturer,
       model: formData.model,
     };
@@ -146,74 +149,77 @@ const FormPage = () => {
   const downloadQRWithDetails = (formData) => {
     const canvas = document.createElement('canvas');
     const svg = qrRef.current.querySelector('svg');
-
+  
     if (!svg) return;
-
+  
     const svgData = new XMLSerializer().serializeToString(svg);
     const img = new Image();
-
+  
     img.onload = () => {
       const pdf = new jsPDF();
-
+  
       // Add logo
       pdf.addImage('/Images/logo.png', 'PNG', 20, 15, 30, 30);
-
+  
       // Header
       pdf.setFontSize(22);
       pdf.setTextColor(0, 0, 0);
       pdf.text('Greater Chennai Police', 60, 30);
-
+  
       pdf.setFontSize(16);
       pdf.text('Vehicle Registration Certificate', 60, 40);
-
+  
       // Add horizontal line
       pdf.setLineWidth(0.5);
       pdf.line(20, 45, 190, 45);
-
+  
       // Owner Details Section
       pdf.setFontSize(14);
       pdf.setTextColor(0, 51, 102); // Dark blue color
       pdf.text('Owner Information', 20, 60);
-
+  
       pdf.setFontSize(11);
       pdf.setTextColor(0, 0, 0);
       pdf.text('Name:', 25, 70);
       pdf.text(`${formData.name}`, 80, 70);
-
+  
       pdf.text('License Number:', 25, 80);
       pdf.text(`${formData.licenseNumber}`, 80, 80);
-
+  
       pdf.text('Mobile:', 25, 90);
       pdf.text(`${formData.mobile}`, 80, 90);
-
+  
       pdf.text('Email:', 25, 100);
       pdf.text(`${formData.email}`, 80, 100);
-
-      pdf.text('Emergency Contact:', 25, 110);
-      pdf.text(`${formData.emergencyContact}`, 80, 110);
-
-      pdf.text('Address:', 25, 120);
-      pdf.text(`${formData.address}`, 80, 120);
-
+  
+      pdf.text('Blood Group:', 25, 110);
+      pdf.text(`${formData.bloodGroup}`, 80, 110);
+  
+      pdf.text('Emergency Contact:', 25, 120);
+      pdf.text(`${formData.emergencyContact}`, 80, 120);
+  
+      pdf.text('Address:', 25, 130);
+      pdf.text(`${formData.address}`, 80, 130);
+  
       // Vehicle Details Section
       pdf.setFontSize(14);
       pdf.setTextColor(0, 51, 102);
-      pdf.text('Vehicle Information', 20, 140);
-
+      pdf.text('Vehicle Information', 20, 150);
+  
       pdf.setFontSize(11);
       pdf.setTextColor(0, 0, 0);
-      pdf.text('Vehicle Number:', 25, 150);
-      pdf.text(`${formData.vehicleNumber}`, 80, 150);
-
-      pdf.text('Vehicle Type:', 25, 160);
-      pdf.text(`${formData.vehicleType}`, 80, 160);
-
-      pdf.text('Manufacturer:', 25, 170);
-      pdf.text(`${formData.manufacturer}`, 80, 170);
-
-      pdf.text('Model:', 25, 180);
-      pdf.text(`${formData.model}`, 80, 180);
-
+      pdf.text('Vehicle Number:', 25, 160);
+      pdf.text(`${formData.vehicleNumber}`, 80, 160);
+  
+      pdf.text('Vehicle Type:', 25, 170);
+      pdf.text(`${formData.vehicleType}`, 80, 170);
+  
+      pdf.text('Manufacturer:', 25, 180);
+      pdf.text(`${formData.manufacturer}`, 80, 180);
+  
+      pdf.text('Model:', 25, 190);
+      pdf.text(`${formData.model}`, 80, 190);
+  
       // Add QR Code
       canvas.width = img.width;
       canvas.height = img.height;
@@ -221,19 +227,19 @@ const FormPage = () => {
       ctx.fillStyle = 'white';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.drawImage(img, 0, 0);
-
+  
       const qrImageData = canvas.toDataURL('image/jpeg', 1.0);
-      pdf.addImage(qrImageData, 'JPEG', 130, 140, 60, 60);
-
+      pdf.addImage(qrImageData, 'JPEG', 130, 150, 60, 60);
+  
       // Footer
       pdf.setFontSize(8);
       pdf.setTextColor(128, 128, 128);
       pdf.text('This is an electronically generated document.', 20, 280);
       pdf.text('Scan QR code for digital verification.', 20, 285);
-
+  
       pdf.save(`${formData.vehicleNumber}_registration.pdf`);
     };
-
+  
     img.src = 'data:image/svg+xml;base64,' + btoa(svgData);
   };
 
@@ -325,6 +331,8 @@ const FormPage = () => {
     pdf.setFontSize(14);
     pdf.setTextColor(0, 51, 102); // Dark blue color
     pdf.text("Owner Information", 20, 60);
+    pdf.text('Blood Group:', 25, 130);
+    pdf.text(`${formData.bloodGroup}`, 80, 130);
   
     pdf.setFontSize(11);
     pdf.setTextColor(0, 0, 0);
@@ -448,7 +456,28 @@ const FormPage = () => {
                       <p className={errorClasses}>{errors.mobile}</p>
                     )}
                   </div>
-  
+                  <div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Blood Group
+  </label>
+  <select
+    name="bloodGroup"
+    value={formData.bloodGroup}
+    onChange={handleChange}
+    className={inputClasses}
+    required
+  >
+    <option value="">Select blood group</option>
+    <option value="A+">A+</option>
+    <option value="A-">A-</option>
+    <option value="B+">B+</option>
+    <option value="B-">B-</option>
+    <option value="AB+">AB+</option>
+    <option value="AB-">AB-</option>
+    <option value="O+">O+</option>
+    <option value="O-">O-</option>
+  </select>
+</div>
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Date of Birth
