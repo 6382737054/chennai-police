@@ -14,13 +14,42 @@ const LoginPage = ({ setIsAuthenticated }) => {
     setLoading(true);
     await new Promise(resolve => setTimeout(resolve, 800));
     
+    // Define credentials and their user types
+    const credentials = {
+      user: {
+        email: 'klabs@gmail.com',
+        password: '1234',
+        userType: 'user'
+      },
+      admin: {
+        email: 'admin@gmail.com',
+        password: '1234admin',
+        userType: 'admin'
+      }
+    };
+  
     if (isLogin) {
-      if (email === 'klabs@gmail.com' && password === '1234') {
+      // Check for user credentials
+      if (email === credentials.user.email && password === credentials.user.password) {
         setLoading(false);
         setError('');
         setIsAuthenticated(true);
+        // Store both auth status and user type
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('userType', credentials.user.userType);
         navigate('/home');
-      } else {
+      }
+      // Check for admin credentials
+      else if (email === credentials.admin.email && password === credentials.admin.password) {
+        setLoading(false);
+        setError('');
+        setIsAuthenticated(true);
+        // Store both auth status and user type
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('userType', credentials.admin.userType);
+        navigate('/home');
+      }
+      else {
         setLoading(false);
         setError('Invalid credentials');
       }
@@ -30,7 +59,6 @@ const LoginPage = ({ setIsAuthenticated }) => {
       setIsLogin(true);
     }
   };
-
   return (
     <div className="h-screen w-screen overflow-x-hidden overflow-y-auto md:overflow-hidden bg-[#f5f5f5]">
       {/* Header */}
