@@ -26,10 +26,11 @@ const Navbar = ({ setIsAuthenticated }) => {
   }, []);
 
   const handleLogout = () => {
+    localStorage.removeItem('isAuthenticated'); // Clear from localStorage
     setIsAuthenticated(false);
+    
     navigate('/');
   };
-
   const formatDate = (date) => {
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
