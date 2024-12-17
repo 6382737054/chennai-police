@@ -60,7 +60,7 @@ const HomePage = () => {
         address: "123 Main Street, Chennai"
       },
       {
-        id: 1,
+        id: 2,
         name: "Prasannaa",
         vehicleNumber: "TN33BX1415",
         type: "Four Wheeler",
@@ -75,7 +75,7 @@ const HomePage = () => {
         address: "123 Main Street, Chennai"
       },
       {
-        id: 2,
+        id: 3,
         name: "Jane Smith",
         vehicleNumber: "TN33CY1789",
         type: "Two Wheeler",
@@ -88,14 +88,60 @@ const HomePage = () => {
         registrationDate: "2024-03-10",
         status: "Active",
         address: "456 Park Road, Chennai"
-      }
+      },
+      {
+        id: 4,
+        name: "Ravi",
+        vehicleNumber: "TN33CY4477",
+        type: "Two Wheeler",
+        manufacturer: "BMW",
+        model: "320D",
+        licenseNumber: "TN5020220005678",
+        email: "jane@example.com",
+        mobile: "9876543220",
+        emergencyContact: "9876543221",
+        registrationDate: "2024-03-10",
+        status: "Active",
+        address: "456 Park Road, Chennai"
+      },
+      {
+        id: 5,
+        name: "Vijay",
+        vehicleNumber: "TN33CY4477",
+        type: "Two Wheeler",
+        manufacturer: "BMW",
+        model: "X1",
+        licenseNumber: "TN5020220005678",
+        email: "jane@example.com",
+        mobile: "9876543220",
+        emergencyContact: "9876543221",
+        registrationDate: "2024-03-10",
+        status: "Active",
+        address: "456 Park Road, Chennai"
+      },
+      {
+        id: 6,
+        name: "Charan",
+        vehicleNumber: "TN33CY4477",
+        type: "Two Wheeler",
+        manufacturer: "Tvs",
+        model: "Star city",
+        licenseNumber: "TN5020220005678",
+        email: "jane@example.com",
+        mobile: "9876543220",
+        emergencyContact: "9876543221",
+        registrationDate: "2024-03-10",
+        status: "Active",
+        address: "456 Park Road, Chennai"
+      },
+
     ]
   };
 
   const userRegistrations = [
     {
       id: 1,
-      name: "John Doe",
+      name: "User1",
       vehicleNumber: "TN33BX1415",
       type: "Four Wheeler",
       manufacturer: "Toyota",
@@ -141,7 +187,7 @@ const HomePage = () => {
   ];
 
   const userDetails = {
-    name: userType === 'admin' ? "Administrator" : "John Doe",
+    name: userType === 'admin' ? "Administrator" : "User",
     licenseNumber: "TN5020220001234",
     address: "123 Main Street, Chennai, Tamil Nadu",
     email: "john@example.com",
@@ -370,7 +416,7 @@ const HomePage = () => {
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8 border border-gray-100">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-800">
-              {userType === 'admin' ? 'All Registered Vehicles' : 'Your Vehicles'}
+              {userType === 'admin' ? 'Recent Registered Vehicles' : 'Your Vehicles'}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
